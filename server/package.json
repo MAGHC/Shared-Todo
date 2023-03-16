@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "shared-to-do-server",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"tsc -w\" \"nodemon dist/app\""
+  },
+  "author": "MAGHC",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cors": "^2.8.13",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^6.0.1",
+    "nodemon": "^2.0.21"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17"
+  }
+}

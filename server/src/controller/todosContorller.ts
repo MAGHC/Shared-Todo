@@ -73,3 +73,17 @@ export async function delTodo(req: Request, res: Response): Promise<void> {
     res.status(404).json({ message: TODOS_ERRORS.NOT_FOUND_TODO });
   }
 }
+
+export async function putTodo(req: Request, res: Response): Promise<void> {
+  const { id } = req.params;
+  const { todo } = req.body;
+
+  const isExist = todos.find((todo) => todo.todoId === id);
+
+  if (isExist) {
+    isExist.todo = todo;
+    res.status(200).json(isExist);
+  } else {
+    res.status(404).json({ message: TODOS_ERRORS.NOT_FOUND_TODO });
+  }
+}

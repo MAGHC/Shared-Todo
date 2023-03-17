@@ -33,5 +33,6 @@ router.get('/', todosController.getTodos);
 router.get('/:id', todosController.getByIdParam);
 router.post('/', todosController.postTodo);
 router.delete('/:id', todosController.delTodo);
+router.put('/:id', todosController.putTodo);
 exports.default = router;
 //# sourceMappingURL=todosRouter.js.map

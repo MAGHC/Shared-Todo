@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.delTodo = exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
+exports.putTodo = exports.delTodo = exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
 const todos_1 = require("./../utils/todos");
 let todos = [
     {
@@ -77,4 +77,19 @@ function delTodo(req, res) {
     });
 }
 exports.delTodo = delTodo;
+function putTodo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { id } = req.params;
+        const { todo } = req.body;
+        const isExist = todos.find((todo) => todo.todoId === id);
+        if (isExist) {
+            isExist.todo = todo;
+            res.status(200).json(isExist);
+        }
+        else {
+            res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+    });
+}
+exports.putTodo = putTodo;
 //# sourceMappingURL=todosContorller.js.map

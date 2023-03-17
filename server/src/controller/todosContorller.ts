@@ -33,7 +33,7 @@ export async function getTodos(req: Request, res: Response): Promise<void> {
   res.status(200).json(data);
 }
 
-export async function getByIdParam(req: Request, res: Response) {
+export async function getByIdParam(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
 
   const isExist = todos.find((todo) => todo.todoId === id);

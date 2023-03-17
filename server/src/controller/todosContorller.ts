@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { TODOS_ERRORS } from './../utils/todos';
 
 type Todo = {
   todoId: string;
@@ -40,6 +41,6 @@ export async function getByIdParam(req: Request, res: Response) {
   if (isExist) {
     res.status(200).json(isExist);
   } else {
-    res.status(404).json({ message: '해당 Todo는 존재하지않습니다.' });
+    res.status(404).json({ message: TODOS_ERRORS.NOT_FOUND_TODO });
   }
 }

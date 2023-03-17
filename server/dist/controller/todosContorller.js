@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getByIdParam = exports.getTodos = void 0;
+const todos_1 = require("./../utils/todos");
 const todos = [
     {
         todoId: '1',
@@ -42,7 +43,7 @@ function getByIdParam(req, res) {
             res.status(200).json(isExist);
         }
         else {
-            res.status(404).json({ message: '해당 Todo는 존재하지않습니다.' });
+            res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
         }
     });
 }

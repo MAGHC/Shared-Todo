@@ -11,19 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTodos = void 0;
 const todos = [
-    { id: 1, createdAt: new Date(), todo: '2021까지~다하기', nickname: '시말' },
-    { id: 2, createdAt: new Date(), todo: '2023까지~다하기', nickname: '시2말' },
+    { email: 'easdsa@naver.com', createdAt: new Date(), todo: '2021까지~다하기', nickname: '시말' },
+    { email: 'easdsa@naver.com', createdAt: new Date(), todo: '2023까지~다하기', nickname: '시2말' },
 ];
 function getTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const nickname = req.query.nickname;
-        let data;
-        if (nickname) {
-            data = todos.filter((todo) => todo.nickname === nickname);
-            return res.status(200).json(data);
-        }
-        data = todos;
-        return res.status(200).json(data);
+        const data = nickname ? todos.filter((todo) => todo.nickname === nickname) : todos;
+        res.status(200).json(data);
     });
 }
 exports.getTodos = getTodos;

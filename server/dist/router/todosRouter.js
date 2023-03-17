@@ -30,5 +30,6 @@ const express_1 = __importDefault(require("express"));
 const todosController = __importStar(require("../controller/todosContorller"));
 const router = express_1.default.Router();
 router.get('/', todosController.getTodos);
+router.get('/:id', todosController.getByIdParam);
 exports.default = router;
 //# sourceMappingURL=todosRouter.js.map

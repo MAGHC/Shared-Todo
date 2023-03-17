@@ -9,10 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTodos = void 0;
+exports.getByIdParam = exports.getTodos = void 0;
 const todos = [
-    { email: 'easdsa@naver.com', createdAt: new Date(), todo: '2021까지~다하기', nickname: '시말' },
-    { email: 'easdsa@naver.com', createdAt: new Date(), todo: '2023까지~다하기', nickname: '시2말' },
+    {
+        todoId: '1',
+        email: 'easdsa@naver.com',
+        createdAt: new Date(),
+        todo: '2021까지~다하기',
+        nickname: '시말',
+    },
+    {
+        todoId: '2',
+        email: 'easdsa@naver.com',
+        createdAt: new Date(),
+        todo: '2023까지~다하기',
+        nickname: '시2말',
+    },
 ];
 function getTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22,4 +34,17 @@ function getTodos(req, res) {
     });
 }
 exports.getTodos = getTodos;
+function getByIdParam(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.id;
+        const isExist = todos.find((todo) => todo.todoId === id);
+        if (isExist) {
+            res.status(200).json(isExist);
+        }
+        else {
+            res.status(404).json({ message: '해당 Todo는 존재하지않습니다.' });
+        }
+    });
+}
+exports.getByIdParam = getByIdParam;
 //# sourceMappingURL=todosContorller.js.map

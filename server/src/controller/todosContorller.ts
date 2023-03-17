@@ -10,7 +10,7 @@ type Todo = {
   profileUrl?: string;
 };
 
-const todos: Todo[] = [
+let todos: Todo[] = [
   {
     todoId: '1',
     email: 'easdsa@naver.com',
@@ -43,4 +43,20 @@ export async function getByIdParam(req: Request, res: Response): Promise<void> {
   } else {
     res.status(404).json({ message: TODOS_ERRORS.NOT_FOUND_TODO });
   }
+}
+
+export async function postTodo(req: Request, res: Response): Promise<void> {
+  const { email, todo, nickname } = req.body;
+
+  const newTodo: Todo = {
+    nickname,
+    todo,
+    email,
+    todoId: '3',
+    createdAt: new Date(),
+  };
+
+  todos = [newTodo, ...todos];
+
+  res.status(201).json(newTodo);
 }

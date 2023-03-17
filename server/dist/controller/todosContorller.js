@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getByIdParam = exports.getTodos = void 0;
+exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
 const todos_1 = require("./../utils/todos");
-const todos = [
+let todos = [
     {
         todoId: '1',
         email: 'easdsa@naver.com',
@@ -48,4 +48,19 @@ function getByIdParam(req, res) {
     });
 }
 exports.getByIdParam = getByIdParam;
+function postTodo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { email, todo, nickname } = req.body;
+        const newTodo = {
+            nickname,
+            todo,
+            email,
+            todoId: '3',
+            createdAt: new Date(),
+        };
+        todos = [newTodo, ...todos];
+        res.status(201).json(newTodo);
+    });
+}
+exports.postTodo = postTodo;
 //# sourceMappingURL=todosContorller.js.map

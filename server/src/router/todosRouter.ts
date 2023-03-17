@@ -9,4 +9,6 @@ router.get('/:id', todosController.getByIdParam);
 
 router.post('/', todosController.postTodo);
 
+router.delete('/:id', todosController.delTodo);
+
 export default router;

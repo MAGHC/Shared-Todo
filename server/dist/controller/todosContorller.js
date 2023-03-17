@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
+exports.delTodo = exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
 const todos_1 = require("./../utils/todos");
 let todos = [
     {
@@ -63,4 +63,18 @@ function postTodo(req, res) {
     });
 }
 exports.postTodo = postTodo;
+function delTodo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.id;
+        const isExist = todos.find((todo) => todo.todoId === id);
+        if (isExist) {
+            todos = todos.filter((todo) => todo.todoId !== id);
+            res.send(204);
+        }
+        else {
+            res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+    });
+}
+exports.delTodo = delTodo;
 //# sourceMappingURL=todosContorller.js.map

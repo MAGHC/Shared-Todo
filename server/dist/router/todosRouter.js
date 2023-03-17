@@ -32,5 +32,6 @@ const router = express_1.default.Router();
 router.get('/', todosController.getTodos);
 router.get('/:id', todosController.getByIdParam);
 router.post('/', todosController.postTodo);
+router.delete('/:id', todosController.delTodo);
 exports.default = router;
 //# sourceMappingURL=todosRouter.js.map

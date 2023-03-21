@@ -9,10 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTodos = void 0;
-const todos = [
-    { email: 'easdsa@naver.com', createdAt: new Date(), todo: '2021까지~다하기', nickname: '시말' },
-    { email: 'easdsa@naver.com', createdAt: new Date(), todo: '2023까지~다하기', nickname: '시2말' },
+exports.putTodo = exports.delTodo = exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
+const todos_1 = require("./../utils/todos");
+let todos = [
+    {
+        todoId: '1',
+        email: 'easdsa@naver.com',
+        createdAt: new Date(),
+        todo: '2021까지~다하기',
+        nickname: '시말',
+    },
+    {
+        todoId: '2',
+        email: 'easdsa@naver.com',
+        createdAt: new Date(),
+        todo: '2023까지~다하기',
+        nickname: '시2말',
+    },
 ];
 function getTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22,4 +35,61 @@ function getTodos(req, res) {
     });
 }
 exports.getTodos = getTodos;
+function getByIdParam(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.id;
+        const isExist = todos.find((todo) => todo.todoId === id);
+        if (isExist) {
+            res.status(200).json(isExist);
+        }
+        else {
+            res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+    });
+}
+exports.getByIdParam = getByIdParam;
+function postTodo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { email, todo, nickname } = req.body;
+        const newTodo = {
+            nickname,
+            todo,
+            email,
+            todoId: '3',
+            createdAt: new Date(),
+        };
+        todos = [newTodo, ...todos];
+        res.status(201).json(newTodo);
+    });
+}
+exports.postTodo = postTodo;
+function delTodo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.id;
+        const isExist = todos.find((todo) => todo.todoId === id);
+        if (isExist) {
+            todos = todos.filter((todo) => todo.todoId !== id);
+            res.send(204);
+        }
+        else {
+            res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+    });
+}
+exports.delTodo = delTodo;
+function putTodo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { id } = req.params;
+        const { todo } = req.body;
+        const isExist = todos.find((todo) => todo.todoId === id);
+        if (isExist) {
+            isExist.todo = todo;
+            res.status(200).json(isExist);
+        }
+        else {
+            res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+    });
+}
+exports.putTodo = putTodo;
 //# sourceMappingURL=todosContorller.js.map

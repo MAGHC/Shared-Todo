@@ -1,0 +1,10 @@
+.loginRegist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loginRegist span:hover {
+  cursor: pointer;
+  color: var(--color-hightLight1);
+}

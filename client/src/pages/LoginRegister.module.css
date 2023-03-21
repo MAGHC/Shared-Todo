@@ -1,0 +1,122 @@
+.header {
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
+  left: 0;
+  width: 100%;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+  font-size: var(--text-size-medium);
+}
+
+.nav {
+  padding: 0 4rem;
+}
+
+.icon {
+  color: var(--color-hightLight1);
+}
+
+.btn {
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  transition: 0.2s;
+  font-size: var(--text-size-medium);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  margin-right: 2rem;
+  transition: 0.5s;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: black;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.close:hover {
+  cursor: pointer;
+}
+
+/* 여기서 부턴 CSS transition */
+
+.mainEnter {
+  transform: scale(0);
+}
+
+.mainEnterAcitve {
+  transform: scale(1);
+  transition: 0.4s;
+}
+
+.mainExit {
+  transform: scale(0);
+  transition: 0.4s;
+}
+
+.mainExitActive {
+  transform: scale(0);
+}
+
+/* 여기서 부턴  로그인 */
+
+.loginEnter {
+  position: absolute;
+  transform: translateX(-400px);
+}
+
+.loginEnterAcitve {
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.loginExit {
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.loginExitActive {
+  position: absolute;
+  transform: translateX(-400px);
+}
+
+/* 여기서 부턴 회원가입*/
+
+.registerEnter {
+  position: absolute;
+  transform: translateX(400px);
+}
+
+.registerEnterAcitve {
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.registerExit {
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.registerExitActive {
+  position: absolute;
+  transform: translateX(400px);
+}
+/* .main-enter {
+  transform: scale(0);
+  transition: 0.4s;
+}
+.main-enter-active {
+  transform: scale(1);
+} */ ;

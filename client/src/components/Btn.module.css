@@ -1,0 +1,20 @@
+.btn {
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  transition: 0.2s;
+  font-size: var(--text-size-medium);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  transition: 0.5s;
+}
+
+.btn:disabled {
+  transform: scale(0);
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: black;
+}

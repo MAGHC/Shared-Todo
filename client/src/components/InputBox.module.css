@@ -1,0 +1,63 @@
+.inputBox {
+  padding: 0 33px 0 5px;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.inputBox input {
+  padding: 0 35px 0 5px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.inputBox input[type='file'] {
+  display: none;
+}
+
+.inputBox input[type='file'] ~ .label {
+  width: 48px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: var(--color-hightLight1);
+}
+
+.inputBox input[type='file'] ~ .label:hover {
+  cursor: pointer;
+}
+
+.inputBox input[type='file']:valid ~ .label,
+.inputBox input[type='file']:focus ~ .label {
+  background-color: var(--color-main-lighter);
+  color: #fff;
+  top: 5%;
+}
+
+.inputBox input:valid ~ .label,
+.inputBox input:focus ~ .label {
+  top: -25%;
+  color: var(--color-main-lighter);
+}
+
+.inputBox input:focus ~ .icon {
+  color: var(--color-hightLight1);
+}
+
+.icon {
+  position: absolute;
+  right: 5px;
+  top: 40%;
+  transition: 0.5s;
+}
+
+.label {
+  position: absolute;
+  left: 5px;
+  top: 30%;
+  transition: 0.5s;
+}

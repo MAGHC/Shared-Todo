@@ -5,12 +5,19 @@
   --color-hightLight1: #fd6853;
   --color-main-lighter: #94b6c1;
 
+  --text-size-medium: 1.2rem;
+
   --font-weight-this: 300;
   --font-weight-middle: 500;
   --font-weight-bold: 700;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
+  padding: 0 30px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -21,6 +28,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  min-height: 100vh;
+  background: url('./asstes/background-min.jpg') no-repeat center;
+  background-size: cover;
 }
 
 code {

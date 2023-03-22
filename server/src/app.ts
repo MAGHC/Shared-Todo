@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import 'express-async-errors';
 
 import todoRouter from './router/todosRouter';
+import authRouter from './router/authRouter';
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.use(cors());
 app.use(helmet());
 
 app.use('/todos', todoRouter);
+
+app.use('/auth', authRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(404);

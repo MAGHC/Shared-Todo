@@ -1,33 +1,19 @@
 import { Request, Response } from 'express';
-import { comparePw, hashPw } from '../utils/bcrypt';
+import { comparePw } from '../utils/bcrypt';
 import { createToken } from './../utils/jwt';
 
 import { AUTH_ERRORS } from '../utils/auth';
 import { AUTH_SUCCESS } from '../utils/auth';
-
-type User = {
-  email: string;
-  password: string;
-  nickname: string;
-  profileUrl?: string;
-};
-
-let allUser: User[] = [];
+import { createUser, getUserByEmail } from '../model/auth';
 
 export async function postRegist(req: Request, res: Response): Promise<void> {
   const { email, password, nickname } = req.body;
-
-  const newId: User = {
-    email,
-    password: await hashPw(password),
-    nickname,
-  };
 
   if (!email || !password || !nickname) {
     res.sendStatus(422);
   }
 
-  const isExist = allUser.find((user) => user.email === email);
+  const isExist = await getUserByEmail(email);
 
   if (isExist) {
     res.status(409).json({
@@ -35,9 +21,7 @@ export async function postRegist(req: Request, res: Response): Promise<void> {
     });
   }
 
-  allUser = [...allUser, newId];
-
-  console.log(allUser);
+  createUser(email, password, nickname);
 
   res.status(201).json({
     token: createToken(email),
@@ -48,7 +32,7 @@ export async function postRegist(req: Request, res: Response): Promise<void> {
 export async function postLogin(req: Request, res: Response): Promise<void> {
   const { email, password } = req.body;
 
-  const user = allUser.find((user) => user.email === email);
+  const user = await getUserByEmail(email);
 
   if (!user) {
     res.sendStatus(404);
@@ -72,6 +56,13 @@ export async function postLogin(req: Request, res: Response): Promise<void> {
   res.sendStatus(202);
 }
 
-export async function getCheck(req: Request, res: Response): Promise<void> {
-  res.sendStatus(205);
+export async function getCheck(req: Request, res: Response): Promise<void | Response> {
+  if (!req.userEmail || !req.token) {
+    return res.sendStatus(404);
+  }
+
+  res.status(200).json({
+    token: req.token,
+    email: req.userEmail,
+  });
 }

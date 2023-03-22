@@ -14,26 +14,20 @@ const bcrypt_1 = require("../utils/bcrypt");
 const jwt_1 = require("./../utils/jwt");
 const auth_1 = require("../utils/auth");
 const auth_2 = require("../utils/auth");
-let allUser = [];
+const auth_3 = require("../model/auth");
 function postRegist(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password, nickname } = req.body;
-        const newId = {
-            email,
-            password: yield (0, bcrypt_1.hashPw)(password),
-            nickname,
-        };
         if (!email || !password || !nickname) {
             res.sendStatus(422);
         }
-        const isExist = allUser.find((user) => user.email === email);
+        const isExist = yield (0, auth_3.getUserByEmail)(email);
         if (isExist) {
             res.status(409).json({
                 message: auth_1.AUTH_ERRORS.ISEXIST,
             });
         }
-        allUser = [...allUser, newId];
-        console.log(allUser);
+        (0, auth_3.createUser)(email, password, nickname);
         res.status(201).json({
             token: (0, jwt_1.createToken)(email),
             message: `${email} ${auth_2.AUTH_SUCCESS.createID}`,
@@ -44,7 +38,7 @@ exports.postRegist = postRegist;
 function postLogin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
-        const user = allUser.find((user) => user.email === email);
+        const user = yield (0, auth_3.getUserByEmail)(email);
         if (!user) {
             res.sendStatus(404);
         }
@@ -67,7 +61,13 @@ function postLogin(req, res) {
 exports.postLogin = postLogin;
 function getCheck(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.sendStatus(205);
+        if (!req.userEmail || !req.token) {
+            return res.sendStatus(404);
+        }
+        res.status(200).json({
+            token: req.token,
+            email: req.userEmail,
+        });
     });
 }
 exports.getCheck = getCheck;

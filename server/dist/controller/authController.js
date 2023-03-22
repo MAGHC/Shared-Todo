@@ -43,6 +43,24 @@ function postRegist(req, res) {
 exports.postRegist = postRegist;
 function postLogin(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const { email, password } = req.body;
+        const user = allUser.find((user) => user.email === email);
+        if (!user) {
+            res.sendStatus(404);
+        }
+        const currentPw = user && user.password;
+        if (currentPw) {
+            const isValid = yield (0, bcrypt_1.comparePw)(password, currentPw);
+            if (!isValid) {
+                res.sendStatus(422);
+            }
+            else {
+                res.status(200).json({
+                    token: (0, jwt_1.createToken)(email),
+                    message: `${auth_2.AUTH_SUCCESS.login}`,
+                });
+            }
+        }
         res.sendStatus(202);
     });
 }

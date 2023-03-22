@@ -28,9 +28,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const authController = __importStar(require("../controller/authController"));
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 router.post('/regist', authController.postRegist);
 router.post('/login', authController.postLogin);
-router.get('/check', authController.getCheck);
+router.get('/check', auth_1.isAuth, authController.getCheck);
 exports.default = router;
 //# sourceMappingURL=authRouter.js.map

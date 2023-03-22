@@ -6,5 +6,6 @@ exports.AUTH_ERRORS = Object.freeze({
 });
 exports.AUTH_SUCCESS = Object.freeze({
     createID: ' 계정이 생성되었습니다',
+    login: '로그인 성공',
 });
 //# sourceMappingURL=auth.js.map

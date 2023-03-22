@@ -10,9 +10,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCheck = exports.postLogin = exports.postRegist = void 0;
+const bcrypt_1 = require("../utils/bcrypt");
+const jwt_1 = require("./../utils/jwt");
+const auth_1 = require("../utils/auth");
+const auth_2 = require("../utils/auth");
+let allUser = [];
 function postRegist(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.sendStatus(201);
+        const { email, password, nickname } = req.body;
+        const newId = {
+            email,
+            password: yield (0, bcrypt_1.hashPw)(password),
+            nickname,
+        };
+        const isExist = allUser.find((user) => user.email === email);
+        if (isExist) {
+            res.status(409).json({
+                message: auth_1.AUTH_ERRORS.ISEXIST,
+            });
+        }
+        allUser = [...allUser, newId];
+        console.log(allUser);
+        res.status(201).json({
+            token: (0, jwt_1.createToken)(email),
+            message: `${email} ${auth_2.AUTH_SUCCESS.createID}`,
+        });
     });
 }
 exports.postRegist = postRegist;

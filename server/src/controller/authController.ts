@@ -23,6 +23,10 @@ export async function postRegist(req: Request, res: Response): Promise<void> {
     nickname,
   };
 
+  if (!email || !password || !nickname) {
+    res.sendStatus(422);
+  }
+
   const isExist = allUser.find((user) => user.email === email);
 
   if (isExist) {

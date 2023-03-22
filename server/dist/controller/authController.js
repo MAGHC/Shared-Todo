@@ -23,6 +23,9 @@ function postRegist(req, res) {
             password: yield (0, bcrypt_1.hashPw)(password),
             nickname,
         };
+        if (!email || !password || !nickname) {
+            res.sendStatus(422);
+        }
         const isExist = allUser.find((user) => user.email === email);
         if (isExist) {
             res.status(409).json({

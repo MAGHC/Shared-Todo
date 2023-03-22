@@ -5,7 +5,3 @@ const expireDate = '1d';
 export function createToken(email: string) {
   return jwt.sign({ email }, secretKey, { expiresIn: expireDate });
 }
-
-export function isVerify(token: string) {
-  return jwt.verify(token, secretKey);
-}

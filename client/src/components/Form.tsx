@@ -1,6 +1,16 @@
-const Form = ({ formName, children }: { formName: string; children: React.ReactNode }) => {
+import { FormEventHandler } from 'react';
+
+const Form = ({
+  formName,
+  children,
+  handleSumbit,
+}: {
+  formName: string;
+  children: React.ReactNode;
+  handleSumbit: FormEventHandler<HTMLFormElement>;
+}) => {
   return (
-    <form>
+    <form onSubmit={handleSumbit}>
       <h2>{formName}</h2>
       {children}
     </form>

@@ -9,7 +9,7 @@ export const useValidation = () => {
   const [nicknameValid, setNicknameValid] = useState(false);
   const [password, setPw] = useState('');
   const [pwValid, setPwValid] = useState(false);
-  const [profile, setProfile] = useState<string>();
+  const [profileUrl, setProfile] = useState<string>();
 
   //   console.log(email);
   //   console.log(pw);
@@ -63,6 +63,6 @@ export const useValidation = () => {
     password,
     emailValid,
     pwValid,
-    profile,
+    profileUrl,
   };
 };

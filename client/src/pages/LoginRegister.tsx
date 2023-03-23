@@ -6,6 +6,8 @@ import { FaFireAlt } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import { Si1Password } from 'react-icons/si';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
+import { CgProfile } from 'react-icons/cg';
 
 import { CSSTransition } from 'react-transition-group';
 
@@ -109,14 +111,14 @@ function LoginRegister() {
 
               <InputBox
                 type={'text'}
-                children={<Si1Password></Si1Password>}
+                children={<MdOutlineDriveFileRenameOutline></MdOutlineDriveFileRenameOutline>}
                 label={'닉네임'}
                 isRequired={true}
               ></InputBox>
 
               <InputBox
                 type={'file'}
-                children={<Si1Password></Si1Password>}
+                children={<CgProfile></CgProfile>}
                 label={'파일'}
                 isRequired={true}
               ></InputBox>

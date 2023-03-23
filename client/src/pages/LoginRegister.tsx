@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import Styles from './LoginRegister.module.css';
 
@@ -16,11 +16,54 @@ import Btn from './../components/Btn';
 import Form from './../components/Form';
 import LoginRegistBotSection from './../components/LoginRegistBotSection';
 import Nav from './../components/Nav';
+import { useValidation } from './../hooks/validation';
+import { useAuth } from './../hooks/auth';
+
+import { LoginBody, RegistBody } from '../type/auth';
 
 function LoginRegister() {
-  const [activeMenu, setActiveMenu] = useState(false);
+  const [registValid, setRegistValid] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(true);
   const [toggleLoginRegister, setTogleLoginRegister] = useState('login');
 
+  const {
+    emailValid,
+    pwValid,
+    nicknameValid,
+    nickname,
+    email,
+    password,
+    profileUrl,
+    onChangeEmail,
+    onChangePw,
+    onChangeFile,
+    onChangeNickname,
+  } = useValidation();
+
+  const { regist, login } = useAuth();
+
+  useEffect(() => {
+    const isValid = emailValid && pwValid && nicknameValid;
+    console.log(isValid, '확인');
+
+    isValid ? setRegistValid(false) : setRegistValid(true);
+  }, [emailValid, pwValid, nicknameValid]);
+
+  const handleRegistSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const reqBody: RegistBody = { email, password, nickname, profileUrl };
+    const res = await regist(reqBody);
+    console.log(res);
+  };
+
+  const handleLoginSubmit = async (e: FormEvent<HTMLElement>) => {
+    e.preventDefault();
+    const reqBody: LoginBody = { email, password };
+    const res = await login(reqBody);
+    console.log(res);
+  };
+
+  console.log(registValid);
   return (
     <>
       <Nav handleLoginMenu={setActiveMenu}></Nav>
@@ -51,15 +94,17 @@ function LoginRegister() {
             timeout={200}
             in={toggleLoginRegister === 'login'}
           >
-            <Form formName={'LOGIN'}>
+            <Form handleSumbit={handleLoginSubmit} formName={'LOGIN'}>
               <InputBox
                 type="email"
+                handleOnChange={onChangeEmail}
                 children={<AiOutlineMail></AiOutlineMail>}
                 label={'이메일'}
                 isRequired={true}
               ></InputBox>
               <InputBox
                 type={'password'}
+                handleOnChange={onChangePw}
                 children={<Si1Password></Si1Password>}
                 label={'비밀번호'}
                 isRequired={true}
@@ -83,9 +128,10 @@ function LoginRegister() {
             timeout={200}
             in={toggleLoginRegister === 'regist'}
           >
-            <Form formName={'REGISTER'}>
+            <Form handleSumbit={handleRegistSubmit} formName={'REGISTER'}>
               <InputBox
                 type="email"
+                handleOnChange={onChangeEmail}
                 children={<AiOutlineMail></AiOutlineMail>}
                 label={'이메일'}
                 isRequired={true}
@@ -93,6 +139,7 @@ function LoginRegister() {
 
               <InputBox
                 type={'password'}
+                handleOnChange={onChangePw}
                 children={<Si1Password></Si1Password>}
                 label={'비밀번호'}
                 isRequired={true}
@@ -100,6 +147,7 @@ function LoginRegister() {
 
               <InputBox
                 type={'text'}
+                handleOnChange={onChangeNickname}
                 children={<MdOutlineDriveFileRenameOutline></MdOutlineDriveFileRenameOutline>}
                 label={'닉네임'}
                 isRequired={true}
@@ -107,12 +155,13 @@ function LoginRegister() {
 
               <InputBox
                 type={'file'}
+                handleOnChange={onChangeFile}
                 children={<CgProfile></CgProfile>}
                 label={'파일'}
-                isRequired={true}
+                isRequired={false}
               ></InputBox>
 
-              <Btn label={'회원가입'}></Btn>
+              <Btn isActive={registValid} label={'회원가입'}></Btn>
               <LoginRegistBotSection
                 label={'계정이 이미 있으신가요?'}
                 spanLabel={'login'}

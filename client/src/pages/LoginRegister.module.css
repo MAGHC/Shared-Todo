@@ -75,22 +75,18 @@
 /* 여기서 부턴  로그인 */
 
 .loginEnter {
-  position: absolute;
   transform: translateX(-400px);
 }
 
 .loginEnterAcitve {
-  transform: translateX(0);
   transition: all 0.5s ease;
 }
 
 .loginExit {
-  transform: translateX(0);
   transition: all 0.5s ease;
 }
 
 .loginExitActive {
-  position: absolute;
   transform: translateX(-400px);
 }
 
@@ -108,11 +104,13 @@
 
 .registerExit {
   transform: translateX(0);
-  transition: all 0.5s ease;
+
+  transition: all 0.3s ease;
 }
 
 .registerExitActive {
   position: absolute;
+
   transform: translateX(400px);
 }
 /* .main-enter {

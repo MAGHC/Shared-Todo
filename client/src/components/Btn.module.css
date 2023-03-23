@@ -12,7 +12,7 @@
 }
 
 .btn:disabled {
-  transform: scale(0);
+  background-color: var(--color-hightLight1);
 }
 
 .btn:hover {

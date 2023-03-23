@@ -7,7 +7,7 @@ export const useValidation = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [nickname, setNickName] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
-  const [pw, setPw] = useState('');
+  const [password, setPw] = useState('');
   const [pwValid, setPwValid] = useState(false);
   const [profile, setProfile] = useState<string>();
 
@@ -60,7 +60,7 @@ export const useValidation = () => {
     nicknameValid,
     email,
     nickname,
-    pw,
+    password,
     emailValid,
     pwValid,
     profile,

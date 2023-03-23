@@ -37,6 +37,7 @@
 
 .btn:hover {
   background-color: #fff;
+  cursor: pointer;
   color: black;
 }
 

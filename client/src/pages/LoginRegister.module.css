@@ -44,9 +44,11 @@
   position: absolute;
   top: 5px;
   right: 5px;
+  transition: all 0.2s;
 }
 
 .close:hover {
+  transform: scale(1.4);
   cursor: pointer;
 }
 

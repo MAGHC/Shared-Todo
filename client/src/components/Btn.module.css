@@ -1,12 +1,13 @@
 .btn {
   border: 0;
   outline: none;
-  background: transparent;
+  width: 100%;
+  background: var(--color-main-darker);
   color: #fff;
   transition: 0.2s;
   font-size: var(--text-size-medium);
   padding: 0.8rem 1rem;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: 0.5s;
 }
 

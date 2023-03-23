@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import Styles from './LoginRegister.module.css';
 
-import { FaFireAlt } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import { Si1Password } from 'react-icons/si';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -16,6 +15,7 @@ import LoginRegistWrapper from './../components/LoginRegistWrapper';
 import Btn from './../components/Btn';
 import Form from './../components/Form';
 import LoginRegistBotSection from './../components/LoginRegistBotSection';
+import Nav from './../components/Nav';
 
 function LoginRegister() {
   const [activeMenu, setActiveMenu] = useState(false);
@@ -23,18 +23,7 @@ function LoginRegister() {
 
   return (
     <>
-      <header className={Styles.header}>
-        <h2>Logo</h2>
-        <nav className={Styles.nav}>
-          <div>
-            <FaFireAlt className={Styles.icon}></FaFireAlt>
-            <button onClick={() => setActiveMenu(true)} className={Styles.btn}>
-              로그인
-            </button>
-          </div>
-        </nav>
-      </header>
-
+      <Nav handleLoginMenu={setActiveMenu}></Nav>
       <CSSTransition
         classNames={{
           enter: Styles.mainEnter,

@@ -100,14 +100,12 @@ function LoginRegister() {
                 handleOnChange={onChangeEmail}
                 children={<AiOutlineMail></AiOutlineMail>}
                 label={'이메일'}
-                isRequired={true}
               ></InputBox>
               <InputBox
                 type={'password'}
                 handleOnChange={onChangePw}
                 children={<Si1Password></Si1Password>}
                 label={'비밀번호'}
-                isRequired={true}
               ></InputBox>
               <Btn label={'로그인'}></Btn>
               <LoginRegistBotSection
@@ -134,7 +132,6 @@ function LoginRegister() {
                 handleOnChange={onChangeEmail}
                 children={<AiOutlineMail></AiOutlineMail>}
                 label={'이메일'}
-                isRequired={true}
               ></InputBox>
 
               <InputBox
@@ -142,7 +139,6 @@ function LoginRegister() {
                 handleOnChange={onChangePw}
                 children={<Si1Password></Si1Password>}
                 label={'비밀번호'}
-                isRequired={true}
               ></InputBox>
 
               <InputBox
@@ -150,7 +146,6 @@ function LoginRegister() {
                 handleOnChange={onChangeNickname}
                 children={<MdOutlineDriveFileRenameOutline></MdOutlineDriveFileRenameOutline>}
                 label={'닉네임'}
-                isRequired={true}
               ></InputBox>
 
               <InputBox
@@ -158,7 +153,6 @@ function LoginRegister() {
                 handleOnChange={onChangeFile}
                 children={<CgProfile></CgProfile>}
                 label={'파일'}
-                isRequired={false}
               ></InputBox>
 
               <Btn isActive={registValid} label={'회원가입'}></Btn>

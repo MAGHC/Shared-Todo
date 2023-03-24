@@ -9,3 +9,7 @@ export type LoginBody = {
   email: string;
   password: string;
 };
+
+export type AuthContextT = {
+  email: string;
+};

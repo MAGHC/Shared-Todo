@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { AuthContextT } from '../type/auth';
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [email, setUserEmail] = useState('');
+  const [email, setUserEmail] = useState<null | string>(null);
 
   useEffect(() => {}, []);
 

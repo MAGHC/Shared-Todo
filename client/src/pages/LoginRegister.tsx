@@ -10,12 +10,12 @@ import { CgProfile } from 'react-icons/cg';
 
 import { CSSTransition } from 'react-transition-group';
 
-import InputBox from './../components/InputBox';
-import LoginRegistWrapper from './../components/LoginRegistWrapper';
-import Btn from './../components/Btn';
-import Form from './../components/Form';
-import LoginRegistBotSection from './../components/LoginRegistBotSection';
-import Nav from './../components/Nav';
+import InputBox from './../components/Common/InputBox';
+import LoginRegistWrapper from '../components/LoginRegist/LoginRegistWrapper';
+import Btn from './../components/Common/Btn';
+import Form from './../components/Common/Form';
+import LoginRegistBotSection from '../components/LoginRegist/LoginRegistBotSection';
+import Nav from './../components/Common/Nav';
 import { useValidation } from './../hooks/validation';
 import { useAuth } from './../hooks/auth';
 

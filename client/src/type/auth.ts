@@ -10,6 +10,6 @@ export type LoginBody = {
   password: string;
 };
 
-export type AuthContextT = {
-  email: string;
-};
+export interface AuthContextT {
+  email: string | null;
+}

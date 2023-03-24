@@ -23,7 +23,7 @@ import { LoginBody, RegistBody } from '../type/auth';
 
 function LoginRegister() {
   const [registValid, setRegistValid] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(true);
+  const [activeMenu, setActiveMenu] = useState(false);
   const [toggleLoginRegister, setTogleLoginRegister] = useState('login');
   const [activeProfileInput, setActiveProfileInput] = useState(false);
 

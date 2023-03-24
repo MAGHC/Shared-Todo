@@ -25,6 +25,7 @@ function LoginRegister() {
   const [registValid, setRegistValid] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [toggleLoginRegister, setTogleLoginRegister] = useState('login');
+  const [activeProfileInput, setActiveProfileInput] = useState(false);
 
   const {
     emailValid,
@@ -148,13 +149,23 @@ function LoginRegister() {
                 label={'닉네임'}
               ></InputBox>
 
-              <InputBox
-                type={'file'}
-                handleOnChange={onChangeFile}
-                children={<CgProfile></CgProfile>}
-                label={'파일'}
-              ></InputBox>
+              {!activeProfileInput && (
+                <div className={Styles.IsProfile}>
+                  <span>프로필 사진을 사용 하시겠어요?</span>
+                  <span className={Styles.profileBtn} onClick={() => setActiveProfileInput(true)}>
+                    yes
+                  </span>
+                </div>
+              )}
 
+              {activeProfileInput && (
+                <InputBox
+                  type={'file'}
+                  handleOnChange={onChangeFile}
+                  children={<CgProfile></CgProfile>}
+                  label={'파일'}
+                ></InputBox>
+              )}
               <Btn isActive={registValid} label={'회원가입'}></Btn>
               <LoginRegistBotSection
                 label={'계정이 이미 있으신가요?'}

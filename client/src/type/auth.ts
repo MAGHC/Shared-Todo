@@ -12,4 +12,11 @@ export type LoginBody = {
 
 export interface AuthContextT {
   email: string | null;
+  login: Function;
+  regist: Function;
+}
+
+export interface ResponseAuth {
+  token: string;
+  message: string;
 }

@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  align-items: center;
+}
+
+.todos {
+  width: 60vw;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  height: 660px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  display: flex;
+}
+
+.send {
+  display: flex;
+  align-items: center;
+}
+
+.sendInput {
+  padding: 0.4rem 1rem;
+  border: none;
+  outline: none;
+  width: 60vh;
+  height: 61px;
+  background-color: rgba(217, 217, 217, 0.8);
+}
+
+.send {
+  margin: 3rem 1rem;
+}
+
+.btn {
+  background-color: #d9d9d9;
+  margin-left: 20px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+  outline: none;
+  padding: 0.8rem 2rem;
+  transition: all.2s;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+}

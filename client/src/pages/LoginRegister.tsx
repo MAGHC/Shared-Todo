@@ -17,9 +17,10 @@ import Form from './../components/Common/Form';
 import LoginRegistBotSection from '../components/LoginRegist/LoginRegistBotSection';
 import Nav from './../components/Common/Nav';
 import { useValidation } from './../hooks/validation';
-import { useAuth } from './../hooks/auth';
 
 import { LoginBody, RegistBody } from '../type/auth';
+import { useAuthContext } from '../context/AuthContext';
+import { AuthContextT } from './../type/auth';
 
 function LoginRegister() {
   const [registValid, setRegistValid] = useState(false);
@@ -41,7 +42,7 @@ function LoginRegister() {
     onChangeNickname,
   } = useValidation();
 
-  const { regist, login } = useAuth();
+  const { regist, login } = useAuthContext() as AuthContextT;
 
   useEffect(() => {
     const isValid = emailValid && pwValid && nicknameValid;

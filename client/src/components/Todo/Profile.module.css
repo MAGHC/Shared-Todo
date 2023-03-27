@@ -1,0 +1,12 @@
+.userImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 80px;
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+}

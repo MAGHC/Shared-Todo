@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.4s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+.after {
+  background: transparent;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.load {
+  visibility: hidden;
+}
+
+.after2 {
+  visibility: visible;
+  color: white;
+  font-size: 4rem;
+}

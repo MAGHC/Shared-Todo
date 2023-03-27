@@ -5,7 +5,6 @@ const InputBox = ({
   type,
   children,
   label,
-  isRequired,
   handleOnChange,
 }: {
   type: string;
@@ -21,7 +20,7 @@ const InputBox = ({
         onChange={handleOnChange}
         id={label}
         type={type}
-        required={isRequired}
+        required={true}
       ></input>
       <span className={Styles.icon}>{children}</span>
       <label htmlFor={label} className={Styles.label}>

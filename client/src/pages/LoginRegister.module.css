@@ -10,6 +10,26 @@
   cursor: pointer;
 }
 
+.IsProfile {
+  margin: 1rem 0;
+}
+
+.IsProfile span {
+  margin-right: 1rem;
+}
+
+.profileBtn {
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background-color: var(--color-main-lighter);
+}
+
+.profileBtn:hover {
+  cursor: pointer;
+  color: var(--color-hightLight1);
+}
+
 /* 여기서 부턴 CSS transition */
 
 .mainEnter {

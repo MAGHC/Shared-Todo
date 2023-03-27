@@ -37,3 +37,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-main-lighter);
+  width: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: aliceblue;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-main-darker);
+}

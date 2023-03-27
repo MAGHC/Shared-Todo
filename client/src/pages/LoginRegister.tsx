@@ -10,12 +10,12 @@ import { CgProfile } from 'react-icons/cg';
 
 import { CSSTransition } from 'react-transition-group';
 
-import InputBox from './../components/InputBox';
-import LoginRegistWrapper from './../components/LoginRegistWrapper';
-import Btn from './../components/Btn';
-import Form from './../components/Form';
-import LoginRegistBotSection from './../components/LoginRegistBotSection';
-import Nav from './../components/Nav';
+import InputBox from './../components/Common/InputBox';
+import LoginRegistWrapper from '../components/LoginRegist/LoginRegistWrapper';
+import Btn from './../components/Common/Btn';
+import Form from './../components/Common/Form';
+import LoginRegistBotSection from '../components/LoginRegist/LoginRegistBotSection';
+import Nav from './../components/Common/Nav';
 import { useValidation } from './../hooks/validation';
 import { useAuth } from './../hooks/auth';
 
@@ -23,8 +23,9 @@ import { LoginBody, RegistBody } from '../type/auth';
 
 function LoginRegister() {
   const [registValid, setRegistValid] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(true);
+  const [activeMenu, setActiveMenu] = useState(false);
   const [toggleLoginRegister, setTogleLoginRegister] = useState('login');
+  const [activeProfileInput, setActiveProfileInput] = useState(false);
 
   const {
     emailValid,
@@ -100,14 +101,12 @@ function LoginRegister() {
                 handleOnChange={onChangeEmail}
                 children={<AiOutlineMail></AiOutlineMail>}
                 label={'이메일'}
-                isRequired={true}
               ></InputBox>
               <InputBox
                 type={'password'}
                 handleOnChange={onChangePw}
                 children={<Si1Password></Si1Password>}
                 label={'비밀번호'}
-                isRequired={true}
               ></InputBox>
               <Btn label={'로그인'}></Btn>
               <LoginRegistBotSection
@@ -134,7 +133,6 @@ function LoginRegister() {
                 handleOnChange={onChangeEmail}
                 children={<AiOutlineMail></AiOutlineMail>}
                 label={'이메일'}
-                isRequired={true}
               ></InputBox>
 
               <InputBox
@@ -142,7 +140,6 @@ function LoginRegister() {
                 handleOnChange={onChangePw}
                 children={<Si1Password></Si1Password>}
                 label={'비밀번호'}
-                isRequired={true}
               ></InputBox>
 
               <InputBox
@@ -150,17 +147,25 @@ function LoginRegister() {
                 handleOnChange={onChangeNickname}
                 children={<MdOutlineDriveFileRenameOutline></MdOutlineDriveFileRenameOutline>}
                 label={'닉네임'}
-                isRequired={true}
               ></InputBox>
 
-              <InputBox
-                type={'file'}
-                handleOnChange={onChangeFile}
-                children={<CgProfile></CgProfile>}
-                label={'파일'}
-                isRequired={false}
-              ></InputBox>
+              {!activeProfileInput && (
+                <div className={Styles.IsProfile}>
+                  <span>프로필 사진을 사용 하시겠어요?</span>
+                  <span className={Styles.profileBtn} onClick={() => setActiveProfileInput(true)}>
+                    yes
+                  </span>
+                </div>
+              )}
 
+              {activeProfileInput && (
+                <InputBox
+                  type={'file'}
+                  handleOnChange={onChangeFile}
+                  children={<CgProfile></CgProfile>}
+                  label={'파일'}
+                ></InputBox>
+              )}
               <Btn isActive={registValid} label={'회원가입'}></Btn>
               <LoginRegistBotSection
                 label={'계정이 이미 있으신가요?'}

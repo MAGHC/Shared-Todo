@@ -4,6 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginRegister from './pages/LoginRegister';
+import TodoPage from './pages/TodoPage';
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LoginRegister></LoginRegister>,
+      },
+      {
+        path: '/todo',
+        element: <TodoPage></TodoPage>,
       },
     ],
   },

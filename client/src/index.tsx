@@ -18,10 +18,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LoginRegister></LoginRegister>,
-      },
-      {
-        path: '/todo',
         element: <TodoPage></TodoPage>,
       },
     ],

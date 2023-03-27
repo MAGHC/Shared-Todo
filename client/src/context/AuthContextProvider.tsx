@@ -5,6 +5,8 @@ import { RegistBody, LoginBody, ResponseAuth } from '../type/auth';
 import axios, { AxiosError } from 'axios';
 
 import { useState, useEffect } from 'react';
+import userEvent from '@testing-library/user-event';
+import LoginRegister from './../pages/LoginRegister';
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [email, setUserEmail] = useState<null | string>(null);
@@ -39,7 +41,11 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   // useEffect(() => {}, []);
 
-  return <AuthContext.Provider value={{ email, login, regist }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ email, login, regist }}>
+      {email ? children : <LoginRegister></LoginRegister>}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContextProvider;

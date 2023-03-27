@@ -1,7 +1,7 @@
 .btn {
   border: 0;
   outline: none;
-  width: 100%;
+  width: 80%;
   background: var(--color-main-darker);
   color: #fff;
   transition: 0.2s;

@@ -4,8 +4,7 @@ import { useFetch } from '../hooks/fetch';
 import { RegistBody, LoginBody, ResponseAuth } from '../type/auth';
 import axios, { AxiosError } from 'axios';
 
-import { useState, useEffect } from 'react';
-import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 import LoginRegister from './../pages/LoginRegister';
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -38,8 +37,6 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
   };
-
-  // useEffect(() => {}, []);
 
   return (
     <AuthContext.Provider value={{ email, login, regist }}>

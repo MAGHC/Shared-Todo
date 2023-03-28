@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-size: 2rem;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 3vh;
+  border-radius: 12px;
+  background-color: white;
+}
+
+.error {
+  background-color: red;
+}
+
+.success {
+  background-color: aqua;
+}

@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import AuthContextProvider from './context/AuthContextProvider';
 import TodoPage from './pages/TodoPage';
+import EventBusProvider from './context/EventBusProvider';
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </AuthContextProvider>
+      <EventBusProvider>
+        <AuthContextProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </AuthContextProvider>
+      </EventBusProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 );

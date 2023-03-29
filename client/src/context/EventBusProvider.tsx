@@ -5,7 +5,7 @@ const EventBusProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeNotice, setActiveNotice] = useState<null | NotificationT>(null);
 
   useEffect(() => {
-    if (activeNotice?.status === 'error' || activeNotice?.status === 'sucess') {
+    if (activeNotice?.status === 'error' || activeNotice?.status === 'success') {
       const hideTimer = setTimeout(() => {
         setActiveNotice(null);
       }, 2000);

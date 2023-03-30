@@ -3,6 +3,7 @@ import { useState, ChangeEvent } from 'react';
 import { EventBusI, useEventBus } from '../context/EventBusContext';
 import { Todo } from '../type/todo';
 import { useFetch } from './fetch';
+import { TodoBody } from './../type/todo';
 
 const useTodo = () => {
   const { get, post, put, del } = useFetch();
@@ -49,10 +50,17 @@ const useTodo = () => {
     return { dataById, isLoading, error };
   };
 
+  const postTodo = (body: TodoBody) => {
+    return post(`/todos`, body).then((res) => console.log(res, 'd????????????????'));
+  };
+
   return {
+    todoInput,
     onChangeTodo,
     useGetTodos,
     useGetTodoById,
+    postTodo,
+    setTodoInput,
   };
 };
 

@@ -25,12 +25,19 @@
 .username {
   display: flex;
   gap: 1rem;
-}
-
-.username {
   color: #94b6c1;
   padding: 0 1rem;
   width: 100%;
+}
+.username p:not(:nth-child(2)) {
+  transition: all 0.4s;
+
+  cursor: pointer;
+}
+
+.username p:not(:nth-child(2)):hover {
+  transform: scale(1.2);
+  color: chartreuse;
 }
 
 .describe {
@@ -42,4 +49,9 @@
   color: #f1f1d7;
   width: 100%;
   text-align: end;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
 }

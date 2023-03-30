@@ -16,19 +16,25 @@ const useTodo = () => {
     setTodoInput(value);
   };
 
-  const useGetTodo = () => {
+  const useGetTodos = (nicnkname?: string) => {
+    const query = nicnkname ? `?nickname=${nicnkname}` : '';
+
     const {
       data: todos,
       isLoading,
       isError,
-    } = useQuery<Todo[]>(['todos'], () => get('/todos').then((res) => res as Todo[]), {
-      onError: () => {
-        show({ status: 'error', message: '에러' });
+    } = useQuery<Todo[]>(
+      ['todos', query],
+      () => get(`/todos/${query}`).then((res) => res as Todo[]),
+      {
+        onError: () => {
+          show({ status: 'error', message: '에러' });
+        },
+        onSuccess: () => {
+          show({ status: 'success', message: '성공' });
+        },
       },
-      onSuccess: () => {
-        show({ status: 'success', message: '성공' });
-      },
-    });
+    );
 
     return { todos, isLoading, isError };
   };
@@ -43,18 +49,9 @@ const useTodo = () => {
     return { dataById, isLoading, error };
   };
 
-  const useGetByNickname = async (nickname: string) => {
-    const {
-      data: todoByNick,
-      isLoading,
-      error,
-    } = useQuery(['todos', nickname], () => get(`/todos/?nickname=${nickname}`));
-    return { todoByNick, isLoading, error };
-  };
   return {
     onChangeTodo,
-    useGetTodo,
-    useGetByNickname,
+    useGetTodos,
     useGetTodoById,
   };
 };

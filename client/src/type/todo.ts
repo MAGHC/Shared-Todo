@@ -8,3 +8,9 @@ export type Todo = {
   todoId: string;
   url?: string;
 };
+
+export interface TodoBody {
+  email: string;
+  nickname: string;
+  todo: string;
+}

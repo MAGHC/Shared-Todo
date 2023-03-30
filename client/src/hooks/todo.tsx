@@ -54,6 +54,14 @@ const useTodo = () => {
     return post(`/todos`, body).then((res) => console.log(res, 'd????????????????'));
   };
 
+  const putTodo = (id: string, body: { todo: string }) => {
+    return put(`/todos/${id}`, body);
+  };
+
+  const deleteTodo = (id: string) => {
+    return del(`/todos/${id}`);
+  };
+
   return {
     todoInput,
     onChangeTodo,
@@ -61,6 +69,8 @@ const useTodo = () => {
     useGetTodoById,
     postTodo,
     setTodoInput,
+    putTodo,
+    deleteTodo,
   };
 };
 

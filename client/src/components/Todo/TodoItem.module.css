@@ -30,7 +30,25 @@
   width: 100%;
 }
 .username p:nth-child(1) {
+  transition: all 0.4s;
+
   cursor: pointer;
+}
+
+.username p:nth-child(1):hover {
+  transform: scale(1.2);
+  color: chartreuse;
+}
+
+.username p:last-child {
+  transition: all 0.4s;
+
+  cursor: pointer;
+}
+
+.username p:last-child:hover {
+  transform: scale(1.2);
+  color: chartreuse;
 }
 
 .describe {
@@ -42,4 +60,9 @@
   color: #f1f1d7;
   width: 100%;
   text-align: end;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
 }

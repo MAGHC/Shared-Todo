@@ -1,6 +1,5 @@
-export type PostTodoBodyT = {};
-
 export type Todo = {
+  id: string;
   createdAt: string;
   email: string;
   nickname: string;

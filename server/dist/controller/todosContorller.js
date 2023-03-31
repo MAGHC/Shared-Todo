@@ -74,8 +74,11 @@ function delTodo(req, res) {
             todoModel.deleteTodo(id);
             res.send(204);
         }
-        else {
+        if (!isExist) {
             res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+        if ((isExist === null || isExist === void 0 ? void 0 : isExist.email) === req.userEmail) {
+            res.sendStatus(403);
         }
     });
 }
@@ -86,11 +89,14 @@ function putTodo(req, res) {
         const { todo } = req.body;
         const isExist = yield todoModel.getTodoById(id);
         if (isExist) {
-            isExist.todo = todo;
-            res.status(200).json(isExist);
+            const updatedTodo = yield todoModel.updateTodo(id, todo);
+            res.status(200).json({ message: updatedTodo });
         }
-        else {
+        if (!isExist) {
             res.status(404).json({ message: todos_1.TODOS_ERRORS.NOT_FOUND_TODO });
+        }
+        if (req.userEmail === (isExist === null || isExist === void 0 ? void 0 : isExist.email)) {
+            res.sendStatus(403);
         }
     });
 }

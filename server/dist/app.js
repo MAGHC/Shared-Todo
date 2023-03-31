@@ -9,6 +9,7 @@ const helmet_1 = __importDefault(require("helmet"));
 require("express-async-errors");
 const todosRouter_1 = __importDefault(require("./router/todosRouter"));
 const authRouter_1 = __importDefault(require("./router/authRouter"));
+const config_1 = require("./config");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -22,7 +23,7 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.sendStatus(500);
 });
-app.listen(8080, () => {
+app.listen(config_1.config.host.port, () => {
     console.log('hisda');
 });
 //# sourceMappingURL=app.js.map

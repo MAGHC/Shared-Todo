@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.comparePw = exports.hashPw = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const bcryptSaltyValue = 12;
+const config_1 = require("./../config");
 function hashPw(pw) {
     return __awaiter(this, void 0, void 0, function* () {
-        const hashedPw = yield bcryptjs_1.default.hash(pw, bcryptSaltyValue);
+        const hashedPw = yield bcryptjs_1.default.hash(pw, config_1.config.bcrypt.saltyValue);
         return hashedPw;
     });
 }

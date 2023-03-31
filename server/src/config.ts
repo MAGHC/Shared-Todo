@@ -1,5 +1,10 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const required = (key: string, defaultValue: string | undefined = undefined) => {
   const value = process.env[key] || defaultValue;
+
   if (!value) {
     throw new Error(`key ${key} 설정 안됨`);
   }
@@ -13,9 +18,9 @@ export const config = {
   },
 
   bcrypt: {
-    saltyValue: required('BCRYPT_SALTY_VALUE', '12'),
+    saltyValue: parseInt(required('BCRYPT_SALTY_VALUE', '12')),
   },
   host: {
-    port: required('HOST_PORT', '8080'),
+    port: parseInt(required('HOST_PORT', '8080')),
   },
 };

@@ -15,28 +15,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAuth = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_1 = require("../model/auth");
-const secretKey = 'n_a9ivm=y0dt5x#)xzd-x%ie5i3dxn*kvp2jd)6ofe&=7+%v*5';
+const config_1 = require("../config");
 function isAuth(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const authHead = req.get('Authorization');
         if (!(authHead && authHead.startsWith('Bearer '))) {
-            return res.status(401).json({ message: `Bearer에러${authHead}` });
+            return res.sendStatus(401);
         }
         const token = authHead && authHead.split(' ')[1];
         if (!token) {
-            return res.status(401).json({ message: '토큰 ㄴ' });
+            return res.sendStatus(401);
         }
-        jsonwebtoken_1.default.verify(token, secretKey, (error, decoded) => __awaiter(this, void 0, void 0, function* () {
+        jsonwebtoken_1.default.verify(token, config_1.config.jwt.secretKey, (error, decoded) => __awaiter(this, void 0, void 0, function* () {
             if (error) {
-                return res.status(401).json({ message: `${authHead}이렇다네` });
+                return res.sendStatus(401);
             }
             const user = yield (0, auth_1.getUserByEmail)(decoded.email);
             if (!user) {
-                return res.status(401).json({ message: 'invaliduser' });
+                return res.sendStatus(401);
             }
             req.userEmail = user.email;
             req.token = token;
-            return next();
+            next();
         }));
     });
 }

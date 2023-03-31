@@ -1,16 +1,13 @@
-'use strict';
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, '__esModule', { value: true });
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.createToken = void 0;
-const jsonwebtoken_1 = __importDefault(require('jsonwebtoken'));
-const secretKey = 'n_a9ivm=y0dt5x#)xzd-x%ie5i3dxn*kvp2jd)6ofe&=7+%v*5';
-const expireDate = '1d';
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const config_1 = require("../config");
 function createToken(email) {
-  return jsonwebtoken_1.default.sign({ email }, confi, { expiresIn: expireDate });
+    return jsonwebtoken_1.default.sign({ email }, config_1.config.jwt.secretKey, { expiresIn: config_1.config.jwt.expireDay });
 }
 exports.createToken = createToken;
 //# sourceMappingURL=jwt.js.map

@@ -30,6 +30,7 @@ function postRegist(req, res) {
         (0, auth_3.createUser)(email, password, nickname);
         res.status(201).json({
             token: (0, jwt_1.createToken)(email),
+            user: { nickname, email },
             message: `${email} ${auth_2.AUTH_SUCCESS.createID}`,
         });
     });
@@ -51,6 +52,7 @@ function postLogin(req, res) {
             else {
                 res.status(200).json({
                     token: (0, jwt_1.createToken)(email),
+                    user: { nickname: user.nickname, email: user.email },
                     message: `${auth_2.AUTH_SUCCESS.login}`,
                 });
             }
@@ -66,7 +68,7 @@ function getCheck(req, res) {
         }
         res.status(200).json({
             token: req.token,
-            email: req.userEmail,
+            userEmail: req.userEmail,
         });
     });
 }

@@ -16,7 +16,7 @@
   backdrop-filter: blur(10px);
   background: rgba(4, 42, 105, 0.8);
   width: 100%;
-  margin-left: 20px;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,11 +41,13 @@
 }
 
 .describe {
+  display: flex;
   width: 100%;
   color: #f1f1d7;
-  flex: 3;
 }
 .date {
+  display: flex;
+  justify-content: flex-end;
   color: #f1f1d7;
   width: 100%;
   text-align: end;
@@ -54,4 +56,8 @@
 textarea {
   resize: none;
   width: 100%;
+}
+
+.nowUser {
+  flex-direction: row-reverse;
 }

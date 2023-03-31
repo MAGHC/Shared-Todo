@@ -20,23 +20,23 @@ function isAuth(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const authHead = req.get('Authorization');
         if (!(authHead && authHead.startsWith('Bearer '))) {
-            return res.sendStatus(401);
+            return res.status(401).json({ message: `Bearer에러${authHead}` });
         }
         const token = authHead && authHead.split(' ')[1];
         if (!token) {
-            return res.sendStatus(401);
+            return res.status(401).json({ message: '토큰 ㄴ' });
         }
         jsonwebtoken_1.default.verify(token, secretKey, (error, decoded) => __awaiter(this, void 0, void 0, function* () {
             if (error) {
-                return res.sendStatus(401);
+                return res.status(401).json({ message: `${authHead}이렇다네` });
             }
             const user = yield (0, auth_1.getUserByEmail)(decoded.email);
             if (!user) {
-                return res.sendStatus(401);
+                return res.status(401).json({ message: 'invaliduser' });
             }
             req.userEmail = user.email;
             req.token = token;
-            next();
+            return next();
         }));
     });
 }

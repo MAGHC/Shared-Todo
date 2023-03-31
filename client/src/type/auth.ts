@@ -11,7 +11,7 @@ export type LoginBody = {
 };
 
 export interface AuthContextT {
-  email: string | null;
+  email: {} | null;
   login: Function;
   regist: Function;
 }
@@ -19,4 +19,8 @@ export interface AuthContextT {
 export interface ResponseAuth {
   token: string;
   message: string;
+  user: {
+    email: string;
+    nickname: string;
+  };
 }

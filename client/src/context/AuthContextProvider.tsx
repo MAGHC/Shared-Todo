@@ -8,18 +8,16 @@ import { useState } from 'react';
 import LoginRegister from './../pages/LoginRegister';
 import Notification from './../components/Common/Notification';
 import { EventBusI, useEventBus } from './EventBusContext';
-import TokenStorage from './../utils/token';
 
-const readAuth = () => {
-  const tokenstorage = new TokenStorage();
+const readUserStateFromStorage = () => {
+  const userEmail = localStorage.getItem('userEmail');
+  const email = userEmail;
 
-  const token = tokenstorage.get();
-
-  return token ? JSON.stringify(token).toString() : null;
+  return email ? JSON.stringify(email) : null;
 };
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [email, setUserEmail] = useState<null | string>(readAuth);
+  const [email, setUserEmail] = useState<string | null>(readUserStateFromStorage);
   const { post } = useFetch();
 
   const { show } = useEventBus() as EventBusI;
@@ -28,7 +26,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     show({ status: 'loading', message: '' });
     try {
       const res = (await post('/auth/login', body)) as ResponseAuth;
-      setUserEmail(res.message);
+      localStorage.setItem('userEmail', res.user.email);
+      setUserEmail(res.user.email);
       show({ status: 'success', message: '성공적으로 로그인했습니다.' });
     } catch (err) {
       const error = err as Error | AxiosError;

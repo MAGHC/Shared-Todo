@@ -25,6 +25,7 @@ export async function postRegist(req: Request, res: Response): Promise<void> {
 
   res.status(201).json({
     token: createToken(email),
+    user: { nickname, email },
     message: `${email} ${AUTH_SUCCESS.createID}`,
   });
 }
@@ -48,6 +49,7 @@ export async function postLogin(req: Request, res: Response): Promise<void> {
     } else {
       res.status(200).json({
         token: createToken(email),
+        user: { nickname: user.nickname, email: user.email },
         message: `${AUTH_SUCCESS.login}`,
       });
     }
@@ -63,6 +65,6 @@ export async function getCheck(req: Request, res: Response): Promise<void | Resp
 
   res.status(200).json({
     token: req.token,
-    email: req.userEmail,
+    userEmail: req.userEmail,
   });
 }

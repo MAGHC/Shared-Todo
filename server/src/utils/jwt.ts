@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
-const secretKey = 'n_a9ivm=y0dt5x#)xzd-x%ie5i3dxn*kvp2jd)6ofe&=7+%v*5';
-const expireDate = '1d';
+import { config } from '../config';
 
 export function createToken(email: string) {
-  return jwt.sign({ email }, secretKey, { expiresIn: expireDate });
+  return jwt.sign({ email }, config.jwt.secretKey, { expiresIn: config.jwt.expireDay });
 }

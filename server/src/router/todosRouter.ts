@@ -4,7 +4,7 @@ import { isAuth } from '../middleware/auth';
 
 const router = express.Router();
 
-router.get('/', isAuth, todosController.getTodos);
+router.get('/', todosController.getTodos);
 
 router.get('/:id', isAuth, todosController.getByIdParam);
 

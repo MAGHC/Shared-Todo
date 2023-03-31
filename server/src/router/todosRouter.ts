@@ -1,16 +1,17 @@
 import express from 'express';
 import * as todosController from '../controller/todosContorller';
+import { isAuth } from '../middleware/auth';
 
 const router = express.Router();
 
 router.get('/', todosController.getTodos);
 
-router.get('/:id', todosController.getByIdParam);
+router.get('/:id', isAuth, todosController.getByIdParam);
 
-router.post('/', todosController.postTodo);
+router.post('/', isAuth, todosController.postTodo);
 
-router.delete('/:id', todosController.delTodo);
+router.delete('/:id', isAuth, todosController.delTodo);
 
-router.put('/:id', todosController.putTodo);
+router.put('/:id', isAuth, todosController.putTodo);
 
 export default router;

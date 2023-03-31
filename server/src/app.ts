@@ -6,6 +6,8 @@ import 'express-async-errors';
 import todoRouter from './router/todosRouter';
 import authRouter from './router/authRouter';
 
+import { config } from './config';
+
 const app = express();
 
 app.use(express.json());
@@ -25,6 +27,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500);
 });
 
-app.listen(8080, () => {
+app.listen(config.host.port, () => {
   console.log('hisda');
 });

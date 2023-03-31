@@ -1,42 +1,20 @@
 import { Request, Response } from 'express';
+import * as todoModel from '../model/todo';
 import { TODOS_ERRORS } from './../utils/todos';
 
-type Todo = {
-  todoId: string;
-  email: string;
-  todo: string;
-  createdAt: Date;
-  nickname: string;
-  profileUrl?: string;
-};
-
-let todos: Todo[] = [
-  {
-    todoId: '1',
-    email: 'easdsa@naver.com',
-    createdAt: new Date(),
-    todo: '2021까지~다하기',
-    nickname: '시말',
-  },
-  {
-    todoId: '2',
-    email: 'easdsa@naver.com',
-    createdAt: new Date(),
-    todo: '2023까지~다하기',
-    nickname: '시2말',
-  },
-];
-
 export async function getTodos(req: Request, res: Response): Promise<void> {
-  const nickname = req.query.nickname;
-  const data = nickname ? todos.filter((todo) => todo.nickname === nickname) : todos;
+  const nickname: string = req.query.nickname as string;
+
+  const data = nickname
+    ? await todoModel.getAllTodoByNick(nickname)
+    : await todoModel.getAllTodos();
   res.status(200).json(data);
 }
 
 export async function getByIdParam(req: Request, res: Response): Promise<void> {
-  const id = req.params.id;
+  const id: string = req.params.id;
 
-  const isExist = todos.find((todo) => todo.todoId === id);
+  const isExist = await todoModel.getTodoById(id);
 
   if (isExist) {
     res.status(200).json(isExist);
@@ -48,15 +26,7 @@ export async function getByIdParam(req: Request, res: Response): Promise<void> {
 export async function postTodo(req: Request, res: Response): Promise<void> {
   const { email, todo, nickname } = req.body;
 
-  const newTodo: Todo = {
-    nickname,
-    todo,
-    email,
-    todoId: '3',
-    createdAt: new Date(),
-  };
-
-  todos = [newTodo, ...todos];
+  const newTodo = await todoModel.createTodo(email, todo, nickname);
 
   res.status(201).json(newTodo);
 }
@@ -64,13 +34,17 @@ export async function postTodo(req: Request, res: Response): Promise<void> {
 export async function delTodo(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
 
-  const isExist = todos.find((todo) => todo.todoId === id);
+  const isExist = await todoModel.getTodoById(id);
 
   if (isExist) {
-    todos = todos.filter((todo) => todo.todoId !== id);
+    todoModel.deleteTodo(id);
     res.send(204);
-  } else {
+  }
+  if (!isExist) {
     res.status(404).json({ message: TODOS_ERRORS.NOT_FOUND_TODO });
+  }
+  if (isExist?.email === req.userEmail) {
+    res.sendStatus(403);
   }
 }
 
@@ -78,12 +52,16 @@ export async function putTodo(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const { todo } = req.body;
 
-  const isExist = todos.find((todo) => todo.todoId === id);
+  const isExist = await todoModel.getTodoById(id);
 
   if (isExist) {
-    isExist.todo = todo;
-    res.status(200).json(isExist);
-  } else {
+    const updatedTodo = await todoModel.updateTodo(id, todo);
+    res.status(200).json({ message: updatedTodo });
+  }
+  if (!isExist) {
     res.status(404).json({ message: TODOS_ERRORS.NOT_FOUND_TODO });
+  }
+  if (req.userEmail === isExist?.email) {
+    res.sendStatus(403);
   }
 }

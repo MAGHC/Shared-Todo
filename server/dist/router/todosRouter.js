@@ -28,11 +28,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const todosController = __importStar(require("../controller/todosContorller"));
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 router.get('/', todosController.getTodos);
-router.get('/:id', todosController.getByIdParam);
-router.post('/', todosController.postTodo);
-router.delete('/:id', todosController.delTodo);
-router.put('/:id', todosController.putTodo);
+router.get('/:id', auth_1.isAuth, todosController.getByIdParam);
+router.post('/', auth_1.isAuth, todosController.postTodo);
+router.delete('/:id', auth_1.isAuth, todosController.delTodo);
+router.put('/:id', auth_1.isAuth, todosController.putTodo);
 exports.default = router;
 //# sourceMappingURL=todosRouter.js.map

@@ -1,9 +1,8 @@
 import bcrypt from 'bcryptjs';
-
-const bcryptSaltyValue = 12;
+import { config } from './../config';
 
 export async function hashPw(pw: string) {
-  const hashedPw = await bcrypt.hash(pw, bcryptSaltyValue);
+  const hashedPw = await bcrypt.hash(pw, config.bcrypt.saltyValue);
 
   return hashedPw;
 }

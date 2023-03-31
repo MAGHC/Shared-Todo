@@ -13,11 +13,11 @@ const readUserStateFromStorage = () => {
   const userEmail = localStorage.getItem('userEmail');
   const email = userEmail;
 
-  return email ? JSON.stringify(email) : null;
+  return email ? JSON.stringify(email).toString().replace(/"/gi, '') : null;
 };
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [email, setUserEmail] = useState<string | null>(readUserStateFromStorage);
+  const [userEmail, setUserEmail] = useState<string | null>(readUserStateFromStorage);
   const { post } = useFetch();
 
   const { show } = useEventBus() as EventBusI;
@@ -61,8 +61,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ email, login, regist }}>
-      {email ? (
+    <AuthContext.Provider value={{ userEmail, login, regist }}>
+      {userEmail ? (
         <Notification>{children}</Notification>
       ) : (
         <Notification>

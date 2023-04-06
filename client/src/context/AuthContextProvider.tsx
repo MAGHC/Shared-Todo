@@ -46,6 +46,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     show({ status: 'loading', message: '' });
     try {
       const res = (await post('/auth/regist', body)) as ResponseAuth;
+      localStorage.setItem('userEmail', res.user.email);
       setUserEmail(res.message);
       show({ status: 'success', message: '성공적으로 회원가입했습니다.' });
     } catch (err) {

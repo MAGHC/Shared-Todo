@@ -11,6 +11,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AuthContextProvider from './context/AuthContextProvider';
 import TodoPage from './pages/TodoPage';
 import EventBusProvider from './context/EventBusProvider';
+import socket from 'socket.io-client';
+
+const io = socket('localhost:8080');
+
+io.on('connect', () => {
+  io.on('sharedTodo', (msg) => {
+    console.log(msg, '소켓꺼');
+  });
+});
 
 const router = createBrowserRouter([
   {

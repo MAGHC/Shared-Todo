@@ -10,7 +10,6 @@ require("express-async-errors");
 const todosRouter_1 = __importDefault(require("./router/todosRouter"));
 const authRouter_1 = __importDefault(require("./router/authRouter"));
 const config_1 = require("./config");
-const socket_io_1 = require("socket.io");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -26,14 +25,5 @@ app.use((err, req, res, next) => {
 });
 const server = app.listen(config_1.config.host.port, () => {
     console.log('hisda');
-});
-const io = new socket_io_1.Server(server, {
-    cors: {
-        origin: '*',
-    },
-});
-io.on('connect', (socket) => {
-    console.log('클라이언트');
-    io.emit('sharedTodo', 'Hi!');
 });
 //# sourceMappingURL=app.js.map

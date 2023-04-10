@@ -8,6 +8,7 @@ import authRouter from './router/authRouter';
 
 import { config } from './config';
 import { Server } from 'socket.io';
+import { Socket } from './connection/socket';
 
 const app = express();
 
@@ -30,15 +31,4 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 const server = app.listen(config.host.port, () => {
   console.log('hisda');
-});
-
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-  },
-});
-
-io.on('connect', (socket) => {
-  console.log('클라이언트');
-  io.emit('sharedTodo', 'Hi!');
 });

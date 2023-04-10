@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as todoModel from '../model/todo';
 import { TODOS_ERRORS } from './../utils/todos';
+import { initIo } from '../connection/socket';
 
 export async function getTodos(req: Request, res: Response): Promise<void> {
   const nickname: string = req.query.nickname as string;
@@ -29,6 +30,7 @@ export async function postTodo(req: Request, res: Response): Promise<void> {
   const newTodo = await todoModel.createTodo(email, todo, nickname);
 
   res.status(201).json(newTodo);
+  initIo().emit('todo', newTodo);
 }
 
 export async function delTodo(req: Request, res: Response): Promise<void> {

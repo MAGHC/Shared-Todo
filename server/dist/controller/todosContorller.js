@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.putTodo = exports.delTodo = exports.postTodo = exports.getByIdParam = exports.getTodos = void 0;
 const todoModel = __importStar(require("../model/todo"));
 const todos_1 = require("./../utils/todos");
+const socket_1 = require("../connection/socket");
 function getTodos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const nickname = req.query.nickname;
@@ -63,6 +64,7 @@ function postTodo(req, res) {
         const { email, todo, nickname } = req.body;
         const newTodo = yield todoModel.createTodo(email, todo, nickname);
         res.status(201).json(newTodo);
+        (0, socket_1.initIo)().emit('todo', newTodo);
     });
 }
 exports.postTodo = postTodo;

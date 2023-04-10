@@ -6,9 +6,9 @@
 }
 
 .todos {
-  width: 1200px;
+  width: 60vw;
   border: 2px solid rgba(255, 255, 255, 0.5);
-  height: 660px;
+  height: 60vh;
   display: flex;
   flex-direction: column;
 

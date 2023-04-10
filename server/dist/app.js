@@ -23,7 +23,7 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.sendStatus(500);
 });
-app.listen(config_1.config.host.port, () => {
+const server = app.listen(config_1.config.host.port, () => {
     console.log('hisda');
 });
 //# sourceMappingURL=app.js.map

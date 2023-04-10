@@ -3,6 +3,8 @@ import Profile from './Profile';
 import { Todo } from '../../type/todo';
 import { useState } from 'react';
 import useTodo from './../../hooks/todo';
+import { useAuthContext } from '../../context/AuthContext';
+import { AuthContextT } from '../../type/auth';
 
 const TodoItem = ({
   todo: { todoId, nickname, email, todo, createdAt },
@@ -16,6 +18,8 @@ const TodoItem = ({
   const [toggleEdit, setToggleEdit] = useState(false);
 
   const [todoItem, setTodoItem] = useState(todo);
+
+  const { userEmail } = useAuthContext() as AuthContextT;
 
   const shiftEnterEvent = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.nativeEvent.isComposing) {
@@ -37,23 +41,43 @@ const TodoItem = ({
     setTodoItem(e.target.value);
   };
 
+  console.log(userEmail?.replace(/"/gi, ''), email, '동일한지', email === userEmail);
+
   return (
-    <li className={Styles.wrapper}>
+    <li
+      className={email === userEmail ? `${Styles.wrapper} ${Styles.nowUser}` : `${Styles.wrapper}`}
+    >
       <Profile></Profile>
       <div className={Styles.todoWrapper}>
-        <div className={Styles.username}>
+        <div
+          className={
+            email === userEmail ? `${Styles.username} ${Styles.nowUser}` : `${Styles.username}`
+          }
+        >
           <p onClick={() => setNickName(nickname)}>{nickname}</p>
           <p>{email}</p>
           {!toggleEdit && <p onClick={() => setToggleEdit(!toggleEdit)}>수정</p>}
           {toggleEdit && <p onClick={() => setToggleEdit(!toggleEdit)}>수정완료</p>}
           <p onClick={() => deleteTodo(todoId)}>삭제</p>
         </div>
-        {!toggleEdit && <p className={Styles.describe}>{todo}</p>}
+        {!toggleEdit && (
+          <p
+            className={
+              email === userEmail ? `${Styles.describe} ${Styles.nowUser}` : `${Styles.describe}`
+            }
+          >
+            {todo}
+          </p>
+        )}
         {toggleEdit && (
           <textarea onChange={onChangeTodo} value={todoItem} onKeyDown={shiftEnterEvent}></textarea>
         )}
 
-        <time className={Styles.date}>{createdAt}</time>
+        <time
+          className={email === userEmail ? `${Styles.date} ${Styles.nowUser}` : `${Styles.date}`}
+        >
+          {createdAt}
+        </time>
       </div>
     </li>
   );

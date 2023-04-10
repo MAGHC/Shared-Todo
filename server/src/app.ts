@@ -7,6 +7,8 @@ import todoRouter from './router/todosRouter';
 import authRouter from './router/authRouter';
 
 import { config } from './config';
+import { Server } from 'socket.io';
+import { Socket } from './connection/socket';
 
 const app = express();
 
@@ -27,6 +29,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500);
 });
 
-app.listen(config.host.port, () => {
+const server = app.listen(config.host.port, () => {
   console.log('hisda');
 });

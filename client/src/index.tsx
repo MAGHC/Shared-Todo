@@ -15,10 +15,8 @@ import socket from 'socket.io-client';
 
 const io = socket('localhost:8080');
 
-io.on('connect', () => {
-  io.on('sharedTodo', (msg) => {
-    console.log(msg, '소켓꺼');
-  });
+io.on('todo', (msg) => {
+  console.log(msg, '확인 들어와랑');
 });
 
 const router = createBrowserRouter([

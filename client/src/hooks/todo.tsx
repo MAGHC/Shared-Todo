@@ -1,12 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { EventBusI, useEventBus } from '../context/EventBusContext';
 import { Todo } from '../type/todo';
 import { useFetch } from './fetch';
 import { TodoBody } from './../type/todo';
+import SocketClass from './../network/socket';
+import TokenStorage from '../utils/token';
+
+const token = new TokenStorage().get();
+
+const socket = new SocketClass(token);
 
 const useTodo = () => {
   const { get, post, put, del } = useFetch();
+  const [socketTodos, setSocketTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    const stopSocket = socket.onSync('todo', (msg) => setSocketTodos((prev) => [...prev, msg]));
+    console.log(socketTodos, '작동확인');
+
+    return () => {
+      stopSocket();
+    };
+  }, [post]);
 
   const [todoInput, setTodoInput] = useState('');
 
@@ -71,6 +87,8 @@ const useTodo = () => {
     setTodoInput,
     putTodo,
     deleteTodo,
+    setSocketTodos,
+    socketTodos,
   };
 };
 

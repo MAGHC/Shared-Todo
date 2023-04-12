@@ -4,25 +4,22 @@ import { EventBusI, useEventBus } from '../context/EventBusContext';
 import { Todo } from '../type/todo';
 import { useFetch } from './fetch';
 import { TodoBody } from './../type/todo';
-import SocketClass from './../network/socket';
+// import SocketClass from './../network/socket';
 import TokenStorage from '../utils/token';
 
 const token = new TokenStorage().get();
 
-const socket = new SocketClass(token);
+// const socket = new SocketClass(token);
 
 const useTodo = () => {
   const { get, post, put, del } = useFetch();
   const [socketTodos, setSocketTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
-    const stopSocket = socket.onSync('todo', (msg) => setSocketTodos((prev) => [...prev, msg]));
-    console.log(socketTodos, '작동확인');
-
-    return () => {
-      stopSocket();
-    };
-  }, [post]);
+    get('/todos')
+      .then((res) => res as Todo[])
+      .then((res) => setSocketTodos(res));
+  }, []);
 
   const [todoInput, setTodoInput] = useState('');
 
@@ -67,7 +64,7 @@ const useTodo = () => {
   };
 
   const postTodo = (body: TodoBody) => {
-    return post(`/todos`, body).then((res) => console.log(res, 'd????????????????'));
+    return post(`/todos`, body);
   };
 
   const putTodo = (id: string, body: { todo: string }) => {

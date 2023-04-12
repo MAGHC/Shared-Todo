@@ -7,25 +7,26 @@ import { useState, FormEvent, useEffect } from 'react';
 
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 import { useFetch } from '../hooks/fetch';
+import { io } from '../network/socket';
 import { Todo } from '../type/todo';
 
 const MOCKDATA = { email: 'sddas@naver.com', nickname: 'sdasda' };
 
 const TodoPage = () => {
-  const [nickname, setNickName] = useState('');
-
   const { postTodo, onChangeTodo, todoInput, setTodoInput, setSocketTodos, socketTodos } =
     useTodo();
 
-  const { get } = useFetch();
-
   useEffect(() => {
-    get('/todos')
-      .then((res) => res as Todo[])
-      .then((res) => setSocketTodos(res));
+    io.on('todo', (msg) => {
+      setSocketTodos((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      io.off('todo');
+    };
   }, []);
 
-  // const { todos } = useGetTodos(nickname);
+  const [nickname, setNickName] = useState('');
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +35,8 @@ const TodoPage = () => {
     setTodoInput('');
   };
 
-  // console.log(socketTodos, '확인');
+  console.log(socketTodos, '변화감지');
+
   return (
     <>
       <Nav

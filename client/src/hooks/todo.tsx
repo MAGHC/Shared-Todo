@@ -4,12 +4,6 @@ import { EventBusI, useEventBus } from '../context/EventBusContext';
 import { Todo } from '../type/todo';
 import { useFetch } from './fetch';
 import { TodoBody } from './../type/todo';
-// import SocketClass from './../network/socket';
-import TokenStorage from '../utils/token';
-
-const token = new TokenStorage().get();
-
-// const socket = new SocketClass(token);
 
 const useTodo = () => {
   const { get, post, put, del } = useFetch();

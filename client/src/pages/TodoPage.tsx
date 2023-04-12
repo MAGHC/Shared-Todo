@@ -6,11 +6,8 @@ import useTodo from './../hooks/todo';
 import { useState, FormEvent, useEffect } from 'react';
 
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
-import { useFetch } from '../hooks/fetch';
-import { io } from '../network/socket';
-import { Todo } from '../type/todo';
 
-const MOCKDATA = { email: 'sddas@naver.com', nickname: 'sdasda' };
+import { io } from '../network/socket';
 
 const TodoPage = () => {
   const { postTodo, onChangeTodo, todoInput, setTodoInput, setSocketTodos, socketTodos } =
@@ -30,12 +27,15 @@ const TodoPage = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const todoBody = { ...MOCKDATA, todo: todoInput };
+
+    const todoBody = {
+      email: localStorage.getItem('userEmail')!,
+      nickname: localStorage.getItem('userNickName')!,
+      todo: todoInput,
+    };
     postTodo(todoBody);
     setTodoInput('');
   };
-
-  console.log(socketTodos, '변화감지');
 
   return (
     <>

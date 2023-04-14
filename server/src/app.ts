@@ -8,6 +8,7 @@ import authRouter from './router/authRouter';
 
 import { config } from './config';
 import { initIo } from './connection/socket';
+import { db } from './db/db';
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
   res.sendStatus(500);
 });
+
+db.getConnection().then((res) => console.log(res, '확인'));
 
 const server = app.listen(config.host.port);
 

@@ -11,6 +11,7 @@ const todosRouter_1 = __importDefault(require("./router/todosRouter"));
 const authRouter_1 = __importDefault(require("./router/authRouter"));
 const config_1 = require("./config");
 const socket_1 = require("./connection/socket");
+const db_1 = require("./db/db");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -24,6 +25,7 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.sendStatus(500);
 });
+db_1.db.getConnection().then((res) => console.log(res, '확인'));
 const server = app.listen(config_1.config.host.port);
 (0, socket_1.initIo)(server);
 //# sourceMappingURL=app.js.map

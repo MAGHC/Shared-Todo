@@ -24,5 +24,11 @@ exports.config = {
     host: {
         port: parseInt(required('HOST_PORT', '8080')),
     },
+    db: {
+        host: required('DB_HOST'),
+        user: required('DB_USER'),
+        datebase: required('DB_DATEBASE'),
+        password: required('DB_PW'),
+    },
 };
 //# sourceMappingURL=config.js.map

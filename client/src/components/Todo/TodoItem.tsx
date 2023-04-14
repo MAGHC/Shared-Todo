@@ -37,8 +37,6 @@ const TodoItem = ({
       return;
     }
     if (e.key === 'Enter') {
-      //보내는함수
-      // console.log(todoId, '보내는 함수 쪽 확인');
       const requestBody = { todo: todoItem };
       putTodo(todoId, requestBody);
       setToggleEdit(false);
@@ -48,8 +46,6 @@ const TodoItem = ({
   const onChangeTodo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTodoItem(e.target.value);
   };
-
-  // console.log(userEmail?.replace(/"/gi, ''), email, '동일한지', email === userEmail);
 
   return (
     <li

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { comparePw } from '../utils/bcrypt';
+import { comparePw, hashPw } from '../utils/bcrypt';
 import { createToken } from './../utils/jwt';
 
 import { AUTH_ERRORS } from '../utils/auth';
@@ -8,6 +8,8 @@ import { createUser, getUserByEmail } from '../model/auth';
 
 export async function postRegist(req: Request, res: Response): Promise<void> {
   const { email, password, nickname } = req.body;
+
+  let { profileUrl } = req.body;
 
   if (!email || !password || !nickname) {
     res.sendStatus(422);
@@ -21,7 +23,13 @@ export async function postRegist(req: Request, res: Response): Promise<void> {
     });
   }
 
-  createUser(email, password, nickname);
+  if (!profileUrl) {
+    profileUrl = null;
+  }
+
+  const user = { nickname, email, password: await hashPw(password), profileUrl };
+
+  createUser(user);
 
   res.status(201).json({
     token: createToken(email),

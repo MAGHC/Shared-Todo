@@ -18,6 +18,7 @@ const auth_3 = require("../model/auth");
 function postRegist(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password, nickname } = req.body;
+        let { profileUrl } = req.body;
         if (!email || !password || !nickname) {
             res.sendStatus(422);
         }
@@ -27,7 +28,11 @@ function postRegist(req, res) {
                 message: auth_1.AUTH_ERRORS.ISEXIST,
             });
         }
-        (0, auth_3.createUser)(email, password, nickname);
+        if (!profileUrl) {
+            profileUrl = null;
+        }
+        const user = { nickname, email, password: yield (0, bcrypt_1.hashPw)(password), profileUrl };
+        (0, auth_3.createUser)(user);
         res.status(201).json({
             token: (0, jwt_1.createToken)(email),
             user: { nickname, email },

@@ -5,7 +5,7 @@ export type User = {
   email: string;
   password: string;
   nickname: string;
-  profileUrl?: string;
+  profileUrl?: string | null;
 };
 
 export interface TokenI {

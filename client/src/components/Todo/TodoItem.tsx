@@ -1,7 +1,7 @@
 import Styles from './TodoItem.module.css';
 import Profile from './Profile';
 import { Todo } from '../../type/todo';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useTodo from './../../hooks/todo';
 import { useAuthContext } from '../../context/AuthContext';
 import { AuthContextT } from '../../type/auth';
@@ -13,6 +13,14 @@ const TodoItem = ({
   todo: Todo;
   setNickName: Function;
 }) => {
+  const todoItemRef = useRef<null | HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (todoItemRef.current === null) {
+      return;
+    } else todoItemRef.current.scrollIntoView();
+  }, []);
+
   const { putTodo, deleteTodo } = useTodo();
 
   const [toggleEdit, setToggleEdit] = useState(false);
@@ -29,8 +37,6 @@ const TodoItem = ({
       return;
     }
     if (e.key === 'Enter') {
-      //보내는함수
-      console.log(todoId, '보내는 함수 쪽 확인');
       const requestBody = { todo: todoItem };
       putTodo(todoId, requestBody);
       setToggleEdit(false);
@@ -41,10 +47,9 @@ const TodoItem = ({
     setTodoItem(e.target.value);
   };
 
-  console.log(userEmail?.replace(/"/gi, ''), email, '동일한지', email === userEmail);
-
   return (
     <li
+      ref={todoItemRef}
       className={email === userEmail ? `${Styles.wrapper} ${Styles.nowUser}` : `${Styles.wrapper}`}
     >
       <Profile></Profile>

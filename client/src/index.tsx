@@ -11,13 +11,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AuthContextProvider from './context/AuthContextProvider';
 import TodoPage from './pages/TodoPage';
 import EventBusProvider from './context/EventBusProvider';
-import socket from 'socket.io-client';
+// import socket from 'socket.io-client';
 
-const io = socket('localhost:8080');
+// const io = socket('localhost:8080');
 
-io.on('todo', (msg) => {
-  console.log(msg, '확인 들어와랑');
-});
+// io.on('todo', (msg) => {
+//   console.log(msg, '확인 들어와랑');
+// });
 
 const router = createBrowserRouter([
   {

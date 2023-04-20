@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUser = exports.getUserByEmail = exports.getAllUser = void 0;
-const bcrypt_1 = require("../utils/bcrypt");
+const db_1 = require("../db/db");
 let allUser = [];
 function getAllUser() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -20,19 +20,21 @@ function getAllUser() {
 exports.getAllUser = getAllUser;
 function getUserByEmail(email) {
     return __awaiter(this, void 0, void 0, function* () {
-        return allUser.find((user) => user.email === email);
+        return db_1.db.execute('SELECT * FROM users WHERE email=?', [email]).then((res) => res[0][0]);
     });
 }
 exports.getUserByEmail = getUserByEmail;
-function createUser(email, password, nickname) {
+function createUser(user) {
     return __awaiter(this, void 0, void 0, function* () {
-        const newId = {
-            email,
-            password: yield (0, bcrypt_1.hashPw)(password),
+        const { nickname, password, email, profileUrl } = user;
+        return db_1.db
+            .execute('INSERT INTO users (nickname, password, email, profileUrl) VALUES(?, ?, ?, ?)', [
             nickname,
-        };
-        allUser.push(newId);
-        return newId.email;
+            password,
+            email,
+            profileUrl,
+        ])
+            .then((res) => res[0].insertId);
     });
 }
 exports.createUser = createUser;

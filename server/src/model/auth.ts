@@ -1,6 +1,5 @@
+import { db } from '../db/db';
 import { User } from '../type/auth';
-
-import { hashPw } from '../utils/bcrypt';
 
 let allUser: User[] = [];
 
@@ -9,21 +8,18 @@ export async function getAllUser(): Promise<User[]> {
 }
 
 export async function getUserByEmail(email: string): Promise<undefined | User> {
-  return allUser.find((user) => user.email === email);
+  return db.execute('SELECT * FROM users WHERE email=?', [email]).then((res) => res[0][0]);
 }
 
-export async function createUser(
-  email: string,
-  password: string,
-  nickname: string,
-): Promise<string> {
-  const newId: User = {
-    email,
-    password: await hashPw(password),
-    nickname,
-  };
+export async function createUser(user: User) {
+  const { nickname, password, email, profileUrl } = user;
 
-  allUser.push(newId);
-
-  return newId.email;
+  return db
+    .execute('INSERT INTO users (nickname, password, email, profileUrl) VALUES(?, ?, ?, ?)', [
+      nickname,
+      password,
+      email,
+      profileUrl,
+    ])
+    .then((res) => res[0].insertId);
 }

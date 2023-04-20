@@ -27,6 +27,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const res = (await post('/auth/login', body)) as ResponseAuth;
       localStorage.setItem('userEmail', res.user.email);
+      localStorage.setItem('userNickName', res.user.nickname);
       setUserEmail(res.user.email);
       show({ status: 'success', message: '성공적으로 로그인했습니다.' });
     } catch (err) {
@@ -47,6 +48,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const res = (await post('/auth/regist', body)) as ResponseAuth;
       localStorage.setItem('userEmail', res.user.email);
+      localStorage.setItem('userNickName', res.user.nickname);
       setUserEmail(res.message);
       show({ status: 'success', message: '성공적으로 회원가입했습니다.' });
     } catch (err) {

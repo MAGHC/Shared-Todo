@@ -3,27 +3,40 @@ import TodoItem from './../components/Todo/TodoItem';
 import Nav from './../components/Common/Nav';
 import useTodo from './../hooks/todo';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 
-const MOCKDATA = { email: 'sddas@naver.com', nickname: 'sdasda' };
+import { io } from '../network/socket';
 
 const TodoPage = () => {
+  const { postTodo, onChangeTodo, todoInput, setTodoInput, setSocketTodos, socketTodos } =
+    useTodo();
+
+  useEffect(() => {
+    io.on('todo', (msg) => {
+      setSocketTodos((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      io.off('todo');
+    };
+  }, []);
+
   const [nickname, setNickName] = useState('');
-
-  const { useGetTodos, postTodo, onChangeTodo, todoInput, setTodoInput } = useTodo();
-
-  const { todos } = useGetTodos(nickname);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const todoBody = { ...MOCKDATA, todo: todoInput };
+
+    const todoBody = {
+      email: localStorage.getItem('userEmail')!,
+      nickname: localStorage.getItem('userNickName')!,
+      todo: todoInput,
+    };
     postTodo(todoBody);
     setTodoInput('');
   };
 
-  console.log(todos, '확인');
   return (
     <>
       <Nav
@@ -33,8 +46,8 @@ const TodoPage = () => {
       ></Nav>
       <div className={Styles.wrapper}>
         <ul className={Styles.todos}>
-          {todos &&
-            todos.map((todo) => {
+          {socketTodos &&
+            socketTodos.map((todo) => {
               return <TodoItem setNickName={setNickName} todo={todo}></TodoItem>;
             })}
         </ul>

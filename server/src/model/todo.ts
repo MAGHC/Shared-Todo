@@ -1,57 +1,47 @@
+import { db } from '../db/db';
 import { Todo } from '../type/todo';
 
-let todos: Todo[] = [
-  {
-    todoId: '1',
-    email: 'easdsa@naver.com',
-    createdAt: new Date(),
-    todo: '2021까지~다하기',
-    nickname: '시말',
-  },
-  {
-    todoId: '2',
-    email: 'easdsa@naver.com',
-    createdAt: new Date(),
-    todo: '2023까지~다하기',
-    nickname: '시2말',
-  },
-];
+const COMMON_QUERY =
+  'SELECT td.email, td.todo, td.createdAt, us.nickname, us.profileUrl, us.email FROM todos as td JOIN users as us ON td.email=us.email ';
+
+const ORDERBY = 'ORDER BY td.createdAt DESC';
 
 export async function getAllTodos() {
-  return todos;
+  return db.execute(`${COMMON_QUERY} ${ORDERBY}`).then((res: Todo[] | []) => res[0]);
 }
 
 export async function getAllTodoByNick(nickname: string) {
-  return todos.filter((todo) => todo.nickname === nickname);
+  return db
+    .execute(`${COMMON_QUERY} WHERE td.nickname=? ${ORDERBY} `, [nickname])
+    .then((res: Todo[] | []) => res[0]);
 }
 
 export async function getTodoById(id: string) {
-  return todos.find((todo) => todo.todoId === id);
+  return db.execute(`${COMMON_QUERY} WHERE td.todoId=?`, [id]).then((res) => res[0][0]);
 }
 
 export async function createTodo(email: string, todo: string, nickname: string) {
-  const newTodo: Todo = {
-    nickname,
-    todo,
-    email,
-    todoId: '3',
-    createdAt: new Date(),
-  };
-
-  todos = [newTodo, ...todos];
-
-  return newTodo;
+  return db
+    .execute('INSERT INTO todos (todo,email,createdAt,nickname) VALUES(?,?,?,?)', [
+      todo,
+      email,
+      new Date(),
+      nickname,
+    ])
+    .then((res) => getTodoById(res[0].insertId));
 }
 
 export async function updateTodo(id: string, todo: string) {
   const findedTodo = await getTodoById(id);
 
   if (findedTodo) {
-    findedTodo.todo = todo;
+    return db
+      .execute('UPDATE todos SET todo=? WHERE todoId=? ', [todo, id])
+      .then((res) => getTodoById(id));
   }
   return findedTodo;
 }
 
 export function deleteTodo(id: string) {
-  todos.filter((todo) => todo.todoId !== id);
+  return db.execute('DELETE FROM todos WHERE todoId=?', [id]);
 }

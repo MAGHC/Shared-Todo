@@ -14,8 +14,12 @@ export async function getUserByEmail(email: string): Promise<undefined | User> {
 export async function createUser(user: User) {
   const { nickname, password, email, profileUrl } = user;
 
-  return db.execute(
-    'INSERT INTO users (nickname, password, email, profileUrl) VALUES(?, ?, ?, ?)',
-    [nickname, password, email, profileUrl],
-  );
+  return db
+    .execute('INSERT INTO users (nickname, password, email, profileUrl) VALUES(?, ?, ?, ?)', [
+      nickname,
+      password,
+      email,
+      profileUrl,
+    ])
+    .then((res) => res[0].insertId);
 }

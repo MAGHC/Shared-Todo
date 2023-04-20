@@ -10,51 +10,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTodo = exports.updateTodo = exports.createTodo = exports.getTodoById = exports.getAllTodoByNick = exports.getAllTodos = void 0;
-let todos = [
-    {
-        todoId: '1',
-        email: 'easdsa@naver.com',
-        createdAt: new Date(),
-        todo: '2021까지~다하기',
-        nickname: '시말',
-    },
-    {
-        todoId: '2',
-        email: 'easdsa@naver.com',
-        createdAt: new Date(),
-        todo: '2023까지~다하기',
-        nickname: '시2말',
-    },
-];
+const db_1 = require("../db/db");
+const COMMON_QUERY = 'SELECT td.email, td.todo, td.createdAt, us.nickname, us.profileUrl, us.email FROM todos as td JOIN users as us ON td.email=us.email ';
+const ORDERBY = 'ORDER BY td.createdAt DESC';
 function getAllTodos() {
     return __awaiter(this, void 0, void 0, function* () {
-        return todos;
+        return db_1.db.execute(`${COMMON_QUERY} ${ORDERBY}`).then((res) => res[0]);
     });
 }
 exports.getAllTodos = getAllTodos;
 function getAllTodoByNick(nickname) {
     return __awaiter(this, void 0, void 0, function* () {
-        return todos.filter((todo) => todo.nickname === nickname);
+        return db_1.db
+            .execute(`${COMMON_QUERY} WHERE td.nickname=? ${ORDERBY} `, [nickname])
+            .then((res) => res[0]);
     });
 }
 exports.getAllTodoByNick = getAllTodoByNick;
 function getTodoById(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        return todos.find((todo) => todo.todoId === id);
+        return db_1.db.execute(`${COMMON_QUERY} WHERE td.todoId=?`, [id]).then((res) => res[0][0]);
     });
 }
 exports.getTodoById = getTodoById;
 function createTodo(email, todo, nickname) {
     return __awaiter(this, void 0, void 0, function* () {
-        const newTodo = {
-            nickname,
+        return db_1.db
+            .execute('INSERT INTO todos (todo,email,createdAt,nickname) VALUES(?,?,?,?)', [
             todo,
             email,
-            todoId: '3',
-            createdAt: new Date(),
-        };
-        todos = [newTodo, ...todos];
-        return newTodo;
+            new Date(),
+            nickname,
+        ])
+            .then((res) => getTodoById(res[0].insertId));
     });
 }
 exports.createTodo = createTodo;
@@ -62,14 +50,16 @@ function updateTodo(id, todo) {
     return __awaiter(this, void 0, void 0, function* () {
         const findedTodo = yield getTodoById(id);
         if (findedTodo) {
-            findedTodo.todo = todo;
+            return db_1.db
+                .execute('UPDATE todos SET todo=? WHERE todoId=? ', [todo, id])
+                .then((res) => getTodoById(id));
         }
         return findedTodo;
     });
 }
 exports.updateTodo = updateTodo;
 function deleteTodo(id) {
-    todos.filter((todo) => todo.todoId !== id);
+    return db_1.db.execute('DELETE FROM todos WHERE todoId=?', [id]);
 }
 exports.deleteTodo = deleteTodo;
 //# sourceMappingURL=todo.js.map

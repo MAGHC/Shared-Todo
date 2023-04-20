@@ -27,7 +27,14 @@ exports.getUserByEmail = getUserByEmail;
 function createUser(user) {
     return __awaiter(this, void 0, void 0, function* () {
         const { nickname, password, email, profileUrl } = user;
-        return db_1.db.execute('INSERT INTO users (nickname, password, email, profileUrl) VALUES(?, ?, ?, ?)', [nickname, password, email, profileUrl]);
+        return db_1.db
+            .execute('INSERT INTO users (nickname, password, email, profileUrl) VALUES(?, ?, ?, ?)', [
+            nickname,
+            password,
+            email,
+            profileUrl,
+        ])
+            .then((res) => res[0].insertId);
     });
 }
 exports.createUser = createUser;

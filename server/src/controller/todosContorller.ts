@@ -26,7 +26,6 @@ export async function getByIdParam(req: Request, res: Response): Promise<void> {
 
 export async function postTodo(req: Request, res: Response): Promise<void> {
   const { email, todo, nickname } = req.body;
-
   const newTodo = await todoModel.createTodo(email, todo, nickname);
 
   res.status(201).json(newTodo);
